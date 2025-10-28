@@ -220,9 +220,11 @@ cat <<'PY' > app/main.py
 from fastapi import FastAPI
 from pydantic import BaseModel
 from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
 import os
 
 app = FastAPI(title="Liuyao Agent Backend")
+load_dotenv()
 engine = create_engine(os.environ["DATABASE_URL"], future=True)
 
 class HexagramRequest(BaseModel):
@@ -247,7 +249,7 @@ PY
 
 ### 3.3 启动后端
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --env-file .env
 ```
 访问 `http://127.0.0.1:8000/docs` 检查接口是否正常。
 
